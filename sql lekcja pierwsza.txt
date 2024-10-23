@@ -1,0 +1,31 @@
+zadanie 1 
+
+create table postac(id_postaci INTEGER primary key auto_increment, nazwa VARCHAR(40), rodzaj ENUM('wiking','ptak','kobieta'),data_ur DATE, wiek INTEGER(5) unsigned);
+
+insert into postac (nazwa, rodzaj, data_ur, wiek) values ("bjorn","wiking","1980.02.20","45");
+insert into postac (nazwa, rodzaj, data_ur, wiek) values ("Drozd","ptak","2000.5.21","25");
+insert into postac (nazwa, rodzaj, data_ur, wiek) values ("tesciowa","kobieta","1936.7.11","78");
+
+update postac set wiek = '88' where rodzaj = 'kobieta';
+
+zadanie 2 
+
+create table walizka (id_walizki INTEGER primary key auto_increment, pojemnosc INTEGER unsigned, kolor enum('rozowy','czerwony','teczowy','zolty'),id_wlasciciela INTEGER, foreign key(id_wlasciciela) references postac(id_postaci) ON DELETE CASCADE);
+
+alter table walizka modify kolor enum('rozowy','czerwony','teczowy','zolty') default 'rozowy';
+
+insert into walizka (pojemnosc, kolor, id_wlasciciela) values ('5 litrow','rozowy','1');
+insert into walizka (pojemnosc, kolor, id_wlasciciela) values ('15 litrow','teczowy','3');
+
+zadanie 3
+
+create table izba (adres_budynku VARCHAR(255), nazwa_izby VARCHAR(255), primary key(adres_budynku,nazwa_izby), metraz INTEGER unsigned, wlasciciel INTEGER, foreign key(wlasciciel) references postac(id_postaci) ON DELETE SET NULL);
+
+alter table izba add kolor VARCHAR(255) default 'czarny' after metraz;
+
+insert into izba(adres_budynku, nazwa_izby, metraz, kolor, wlasciciel) values('ul.polna 4','izba bjorna','100','czarny','1');
+
+zadanie 4
+
+create table przetwory(id_przetworu INTEGER primary key auto_increment,rok_produkcji DATE default '1653.01.01',
+

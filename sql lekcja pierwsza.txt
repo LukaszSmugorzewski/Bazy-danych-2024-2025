@@ -27,5 +27,27 @@ insert into izba(adres_budynku, nazwa_izby, metraz, kolor, wlasciciel) values('u
 
 zadanie 4
 
-create table przetwory(id_przetworu INTEGER primary key auto_increment,rok_produkcji DATE default '1653.01.01',
+create table przetwory(id_przetworu INTEGER primary key auto_increment, rok_produkcji DATE default '1654-01-01', id_wykonawcy INTEGER, zawartosc VARCHAR(100), dodatek VARCHAR(100) DEFAULT 'papryczka chilli', id_konsumenta INTEGER, FOREIGN KEY (id_konsumenta) REFERENCES postac (id_postaci));
 
+INSERT INTO przetwory (rok_produkcji, id_wykonawcy, zawartosc, dodatek, id_konsumenta) VALUES ('2024-01-01', (SELECT id_postaci FROM postac WHERE nazwa = 'Bjorn'), 'bigos', 'papryczka chilli', (SELECT id_postaci FROM postac WHERE nazwa = 'Teściowa'));
+
+
+Zadanie 5
+INSERT INTO postac (nazwa, rodzaj, data_ur, wiek) VALUES ('Wiking1', 'wiking', '1990-01-01', 34), ('Wiking2', 'wiking', '1985-01-01', 39), ('Wiking3', 'wiking', '1992-01-01', 32), ('Wiking4', 'wiking', '1988-01-01', 36), ('Wiking5', 'wiking', '1995-01-01', 29);
+ 
+CREATE TABLE statek (nazwa_statku VARCHAR(100) PRIMARY KEY, rodzaj_statku ENUM('stary', 'nowy'), data_wodowania DATE, max_ladownosc INT UNSIGNED);
+ 
+INSERT INTO statek (nazwa_statku, rodzaj_statku, data_wodowania, max_ladownosc) VALUES ('Statek1', 'stary', '1500-01-01', 100), ('Statek2', 'nowy', '2000-01-01', 200);
+ 
+ALTER TABLE postac ADD COLUMN funkcja VARCHAR(50);
+ 
+UPDATE postac SET funkcja = 'kapitan' WHERE nazwa = 'Bjorn';
+ 
+ALTER TABLE postac ADD COLUMN id_statku VARCHAR(100), ADD FOREIGN KEY (id_statku) REFERENCES statek(nazwa_statku);
+ 
+UPDATE postac SET id_statku = 'Statek1' WHERE nazwa = 'wiking1'; UPDATE postac SET id_statku = 'Statek1' WHERE nazwa = 'wiking2'; UPDATE postac SET id_statku = 'Statek1' WHERE nazwa = 'drozd';
+UPDATE postac SET id_statku = 'Statek2' WHERE nazwa = 'bjorn'; UPDATE postac SET id_statku = 'Statek2' WHERE nazwa = 'wiking3'; UPDATE postac SET id_statku = 'Statek2' WHERE nazwa = 'wiking4'; UPDATE postac SET id_statku = 'Statek2' WHERE nazwa = 'wiking5';
+ 
+DELETE FROM izba WHERE adres_budynku = 'ul.polna 4';
+ 
+DROP TABLE izba;

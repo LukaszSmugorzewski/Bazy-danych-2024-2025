@@ -26,9 +26,33 @@ zadanie 4
 INSERT INTO postac (nazwa, data_ur, wiek) VALUES ('waz', '1980-02-10', 23);
 
 CREATE TABLE marynarz (id_postaci INT AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(55), rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena'), data_ur DATE, wiek INT, funkcja ENUM('kapitan'), id_statku VARCHAR(55), pesel VARCHAR(55));
+insert into marynarz(nazwa, rodzaj, data_ur, funkcja, wiek) values ("bjorn","wiking","1980.02.20","kapitan","45");
+insert into marynarz(nazwa, rodzaj, data_ur, wiek) values ("Drozd","ptak","2000.5.21","25");
+insert into marynarz(nazwa, rodzaj, data_ur, wiek) values ("tesciowa","kobieta","1936.7.11","78");
+INSERT INTO marynarz(nazwa, rodzaj, data_ur, wiek) VALUES ('Wiking1', 'wiking', '1990-01-01', 34);
+INSERT INTO marynarz(nazwa, rodzaj) VALUES ('gertruda Nieszczera','syrena');
+INSERT INTO marynarz(nazwa, data_ur, wiek) VALUES ('waz', '1980-02-10', 23);
 
 ALTER TABLE marynarz ADD CONSTRAINT fk_id_statku FOREIGN KEY (id_statku) REFERENCES statek(nazwa_statku);
 
 zadanie 5
+
+UPDATE marynarz SET id_statku = NULL WHERE id_statku IS NOT NULL;
+
+delete from marynarz where nazwa = 'wiking1';
+
+
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+ALTER TABLE marynarz DROP FOREIGN KEY id_statku;
+
+delete from statek where nazwa is not null;
+
+drop table statek;
+
+create table zwierz(id_zwierz INT auto_increment primary key, nazwa varchar(55), wiek INT);
+
+INSERT INTO zwierz (nazwa, wiek) SELECT nazwa, wiek FROM postac WHERE nazwa IN ('drozd', 'waz');
+
+
 
 

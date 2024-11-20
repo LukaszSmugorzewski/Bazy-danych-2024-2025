@@ -17,4 +17,18 @@ zadanie 3
 
 UPDATE postac SET id_statek = (SELECT id from statek WHERE nazwa = 'bjorn") WHERE nazwa sel= '%a%';
 
-UPDATE statek SET max_ladownosc = max_ladownosc * 0,7 WHERE data_wodowania = 
+UPDATE statek SET max_ladownosc = max_ladownosc * 0,7 WHERE data_wodowania = '2000';
+
+select * from postac where wiek<'1000';
+
+zadanie 4
+
+INSERT INTO postac (nazwa, data_ur, wiek) VALUES ('waz', '1980-02-10', 23);
+
+CREATE TABLE marynarz (id_postaci INT AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(55), rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena'), data_ur DATE, wiek INT, funkcja ENUM('kapitan'), id_statku VARCHAR(55), pesel VARCHAR(55));
+
+ALTER TABLE marynarz ADD CONSTRAINT fk_id_statku FOREIGN KEY (id_statku) REFERENCES statek(nazwa_statku);
+
+zadanie 5
+
+

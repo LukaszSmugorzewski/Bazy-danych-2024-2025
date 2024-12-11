@@ -1,6 +1,37 @@
-zadanie 1 
+zadanie 1
+select avg(waga) from kreatura where rodzaj = 'wiking';
+ 
+select rodzaj, avg(waga) as srednia_waga, count(rodzaj) as ilosc_rekordow from kreatura group by rodzaj;
+ 
+select timestampdiff(year, data_urodzenia, curdate()) as wiek from kreatura;
+ 
+zadanie 2
+select rodzaj, sum(waga) as suma_wag from zasob group by rodzaj;
+ 
+select nazwa, avg(waga) as srednia_waga, count(*) as ilosc, sum(waga) as suma_wag from zasob group by nazwa having count(*) >= 4 and sum(waga) > 10;
 
-select avg(waga) as srednia_waga from kreatura where rodzaj='wiking';
+select nazwa from zasob group by nazwa having count(*) >1;
+  
+zadanie 3
 
+select k.nazwa as kreatura, z.idzasobu, sum(z.ilosc) as ilosc_zasobow from zasob z join kreatura k on idkreatury = k.idkreatury group by k.nazwa, z.idzasobu;
 
+select k.nazwa as kreatura, group_concat(zb.nazwa order by zb.nazwa) as zasoby from kreatura k join zasob z on k.idkreatury = idkreatury join zasob zb on z.idzasobu = zb.idzasobu group by k.nazwa;
+
+select k.nazwa from kreatura k left join zasob z on k.idkreatury = idkreatury where z.idzasobu is null;
+ 
+zadanie 4
+
+select w.nazwa as wiking, z.nazwa as zasob from kreatura w join ekwipunek e on w.idkreatury = e.idkreatury join zasob z on e.idzasobu = z.idzasobu where w.dataur between '1670-01-01' and '1679-12-31';
+ 
+select k.nazwa as kreatura from kreatura k join ekwipunek e on k.idkreatury = e.idkreatury join zasob z on e.idzasobu = z.idzasobu where z.rodzaj = 'jedzenie' order by k.dataur desc limit 5;
+
+select k1.nazwa as kreatura_1, k2.nazwa as kreatura_2 from kreatura k1 join kreatura k2 on abs(k1.idkreatury - k2.idkreatury) = 5;
+
+zadanie 5
+
+select k.rodzaj, avg(z.waga) as srednia_waga_zasobow from kreatura k join ekwipunek e on k.idkreatury = e.idkreatury join zasob z on e.idzasobu = z.idzasobu where k.rodzaj not in ('małpa', 'wąż') group by k.rodzaj having sum(e.ilosc) < 30;
+
+select  k1.rodzaj, k1.nazwa as najmłodsza_nazwa, k1.dataur as najmłodsza_data_urodzenia, k1.rodzaj as najmłodszy_rodzaj, k2.nazwa as najstarsza_nazwa, k2.dataur as najstarsza_data_urodzenia, k2.rodzaj as najstarszy_rodzaj from kreatura k1
+join kreatura k2 on k1.rodzaj = k2.rodzaj where k1.dataur= (select max(dataur) from kreatura where rodzaj = k1.rodzaj) and k2.dataur = (select min(dataur) from kreatura where rodzaj = k2.rodzaj);
 

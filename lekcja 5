@@ -1,1 +1,29 @@
+zadanie 1 
+
+create table kreatura like wikingowie.kreatura;
+insert into smugorzewskil.kreatura select * from wikingowie.kreatura;
+
+create table uczestnicy like wikingowie.uczestnicy;
+insert into smugorzewskil.uczestnicy select * from wikingowie.uczestnicy;
+
+create table etapy_wyprawy like wikingowie.etapy_wyprawy;
+insert into smugorzewskil.etapy_wyprawy select * from wikingowie.etapy_wyprawy;
+
+create table sektor like wikingowie.sektor;
+insert into smugorzewskil.sekter select * from wikingowie.sector;
+
+create table wyprawa like wikingowie.wyprawa;
+insert into smugorzewskil.wyprawa select * from wikingowie.wyprawa;
+
+
+
+select nazwa from kreatura, uczestnicy where uczestnicy.id_uczestnika = kreatura.IdKreatury;
+
+
+
+select wyprawa.nazwa, sum(ekwipunek.ilosc) from wyprawa, kreatura, uczestnicy, ekwipunek where wyprawa.id_wyprawy = uczestnicy.id_wyprawy and uczestnicy.id_uczestnika = kreatura.idKreatury and kreatura.IdKreatury = ekwipunek.idkreatury group by wyprawa.nazwa;^C
+
+
+zadanie 2 
+
 
